@@ -17,4 +17,20 @@ public class EmployeeServices {
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
     }
+ // Método para actualizar un empleado
+    public Employee updateEmployee(Integer id, Employee employeeDetails) {
+        // Primero se busca el empleado por su ID
+        Employee existingEmployee = employeeRepository.findById(id).orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
+
+        // Actualizar los atributos del empleado con los detalles proporcionados
+        existingEmployee.setFirst_nombre(employeeDetails.getFirst_nombre());
+        existingEmployee.setLast_nombre(employeeDetails.getLast_nombre());
+        existingEmployee.setBirthdate(employeeDetails.getBirthdate());
+        existingEmployee.setDep_id(employeeDetails.getDep_id());
+        existingEmployee.setPos_id(employeeDetails.getPos_id());
+        existingEmployee.setEntry_date(employeeDetails.getEntry_date());
+
+        // Guardar el empleado actualizado
+        return employeeRepository.save(existingEmployee);
+    }
 }
